@@ -1,8 +1,8 @@
 import PyQt5.QtWidgets as qtw
 import PyQt5.QtCore as qtc
-import attitudeIndicator as ai
-import headingIndicator as hi
-import gaugeIndicator as gi
+import src.attitudeIndicator as ai
+import src.headingIndicator as hi
+import src.gaugeIndicator as gi
 import sys
 
 class mk1(qtw.QWidget):
