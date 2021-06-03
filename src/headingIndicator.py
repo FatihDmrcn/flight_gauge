@@ -119,9 +119,9 @@ class NavigationDisplay(qtw.QWidget):
         pen.setWidthF(self.unit/(2*self.scaleWP))
         painterND.setPen(pen)
         #Waypoint Define
-        wps = [{"WP":"TCKK","COORD":(self.unit*5,-self.unit*5)},
-            {"WP":"KKTC","COORD":(self.unit*10,-self.unit*23.5)},
-            {"WP":"KTCK","COORD":(self.unit*15,-self.unit*40)}]
+        wps = [{"WP":"EDDK","COORD":(self.unit*5,-self.unit*5)},
+            {"WP":"EDDV","COORD":(self.unit*10,-self.unit*23.5)},
+            {"WP":"EDDB","COORD":(self.unit*15,-self.unit*40)}]
         #Waypoint Draw Line
         wpPath = qtg.QPainterPath(qtc.QPointF(0,0))
         for wp in wps:
