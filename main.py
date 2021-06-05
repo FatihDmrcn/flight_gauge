@@ -14,7 +14,7 @@ class mk1(qtw.QWidget):
         self.pfd = ai.PrimaryFlightDisplay(300)
         self.nd = hi.NavigationDisplay(300)
         
-        self.gauge = [[gi.Gauge(75,90,-90) for j in range(2)] for i in range(4)]
+        self.gauge = [[gi.Gauge(75, 90, -90) for j in range(2)] for i in range(4)]
         
         self.slider = qtw.QSlider(qtc.Qt.Horizontal)
         self.slider.setMinimum(-900)
