@@ -5,6 +5,7 @@ import src.headingIndicator as hi
 import src.gaugeIndicator as gi
 import sys
 
+
 class mk1(qtw.QWidget):
     def __init__(self):
         super().__init__()
@@ -22,23 +23,24 @@ class mk1(qtw.QWidget):
         self.slider.setValue(0)
         self.slider.valueChanged.connect(self.values)
         
-        self.grid.addWidget(self.pfd,0,0,4,1)
-        self.grid.addWidget(self.nd,0,1,4,1)
+        self.grid.addWidget(self.pfd, 0, 0, 4, 1)
+        self.grid.addWidget(self.nd, 0, 1, 4, 1)
         for i in range(4):
             for j in range(2):
-                self.grid.addWidget(self.gauge[i][j],i,2+j)
-        self.grid.addWidget(self.slider,4,0,1,4)
+                self.grid.addWidget(self.gauge[i][j], i, 2+j)
+        self.grid.addWidget(self.slider, 4, 0, 1, 4)
         self.setLayout(self.grid)
         self.show()
         
     def values(self):
         v = self.slider.value()/10
-        self.pfd.setAngle(v,v)
-        self.nd.setAngle(v)
+        self.pfd.set_angle(v, v)
+        self.nd.set_angle(v)
         for i in range(4):
             for j in range(2):
-                self.gauge[i][j].setValue(v)
-        
+                self.gauge[i][j].set_value(v)
+
+
 if __name__ == '__main__':
     app = qtw.QApplication(sys.argv)
     ui = mk1()

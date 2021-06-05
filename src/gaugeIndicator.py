@@ -1,56 +1,57 @@
-import PyQt5.QtWidgets as qtw
-import PyQt5.QtCore as qtc
-import PyQt5.QtGui as qtg
+import PyQt5.QtWidgets as Qtw
+import PyQt5.QtCore as Qtc
+import PyQt5.QtGui as Qtg
 import numpy as np
 
-class Gauge(qtw.QWidget):
+
+class Gauge(Qtw.QWidget):
     def __init__(self, size, max_value, min_value=0, *args, **kwargs):
         super(Gauge, self).__init__(*args, **kwargs)
         if size < 75:
             size = 75
-        self.setFixedSize(int(1.5*size),size)
+        self.setFixedSize(int(1.5*size), size)
         self.unit = self.height()/100
-        self.maxAngle = 210                        #Max Angle of Indication
+        self.maxAngle = 210                        # Max Angle of Indication
         self.r = (self.height()/2)*0.9
         # Font
-        self.font = qtg.QFont("Courier New")
+        self.font = Qtg.QFont("Courier New")
         self.font.setWeight(61)
         self.font.setPixelSize(int(17.5*self.unit))
         self.setFont(self.font)
         # Background
         self.setAutoFillBackground(True)
-        palette = qtg.QPalette()
-        palette.setColor(self.backgroundRole(), qtc.Qt.black)
+        palette = Qtg.QPalette()
+        palette.setColor(self.backgroundRole(), Qtc.Qt.black)
         self.setPalette(palette)
         # Values
         self.value = 0
         self.maxValue = max_value
         self.minValue = min_value
-        self.angle = self.valueToAngle(self.value)
-        
-    def setValue(self,value):
+        self.angle = self.value_to_angle()
+
+    def set_value(self, value):
         self.value = value
-        self.angle = self.valueToAngle(self.value)
+        self.angle = self.value_to_angle()
         self.repaint()
         
-    def valueToAngle(self,value):
+    def value_to_angle(self):
         return self.maxAngle*(self.value-self.minValue)/(self.maxValue-self.minValue)
         
-    def paintEvent(self,event):
-        painter = qtg.QPainter(self)
+    def paintEvent(self, event):
+        painter = Qtg.QPainter(self)
         painter.translate(self.width() / 2, self.height() / 2)
-        painter.setRenderHints(qtg.QPainter.HighQualityAntialiasing, True)
+        painter.setRenderHints(Qtg.QPainter.HighQualityAntialiasing, True)
 
         # Pen
-        pen = qtg.QPen()
+        pen = Qtg.QPen()
         pen.setWidthF(2*self.unit)
-        pen.setColor(qtc.Qt.white)
-        pen.setJoinStyle(qtc.Qt.MiterJoin)
+        pen.setColor(Qtc.Qt.white)
+        pen.setJoinStyle(Qtc.Qt.MiterJoin)
         painter.setPen(pen)
         # Brush
-        brush = qtg.QBrush()
-        brush.setStyle(qtc.Qt.SolidPattern)
-        brush.setColor(qtc.Qt.transparent)
+        brush = Qtg.QBrush()
+        brush.setStyle(Qtc.Qt.SolidPattern)
+        brush.setColor(Qtc.Qt.transparent)
 
         self.paint_radial_indicator_static(painter, pen, brush)
         self.paint_radial_indicator_bar(painter, pen)
@@ -62,22 +63,22 @@ class Gauge(qtw.QWidget):
 
         # Radial Indicator Arc
         pen.setWidthF(self.unit*4)
-        pen.setCapStyle(qtc.Qt.FlatCap)
+        pen.setCapStyle(Qtc.Qt.FlatCap)
         painter.setPen(pen)
-        arc_rect = qtc.QRectF(-self.height() / 2, -self.height() / 2, self.height(), self.height())
+        arc_rect = Qtc.QRectF(-self.height() / 2, -self.height() / 2, self.height(), self.height())
         painter.drawArc(arc_rect, 0, -self.maxAngle * 16)
 
         # Radial Indicator Pie
-        brush.setColor(qtc.Qt.gray)
+        brush.setColor(Qtc.Qt.gray)
         painter.setBrush(brush)
-        pen.setColor(qtc.Qt.transparent)
+        pen.setColor(Qtc.Qt.transparent)
         painter.setPen(pen)
-        pie_rect = qtc.QRectF(-self.r, -self.r, 2 * self.r, 2 * self.r)
-        painter.drawPie(pie_rect, 0, -self.angle * 16)      #Degree in 1/16
+        pie_rect = Qtc.QRectF(-self.r, -self.r, 2 * self.r, 2 * self.r)
+        painter.drawPie(pie_rect, 0, -self.angle * 16)      # Degree in 1/16
 
         # Radial Max Stroke
-        pen.setColor(qtc.Qt.red)
-        pen.setCapStyle(qtc.Qt.SquareCap)
+        pen.setColor(Qtc.Qt.red)
+        pen.setCapStyle(Qtc.Qt.SquareCap)
         painter.setPen(pen)
         # Opposed Cathetus
         opp = np.sin((self.maxAngle-180) * np.pi/180)
@@ -90,8 +91,8 @@ class Gauge(qtw.QWidget):
     def paint_radial_indicator_bar(self, painter, pen):
         painter.save()
         painter.rotate(self.angle)
-        pen.setColor(qtc.Qt.white)
-        pen.setCapStyle(qtc.Qt.SquareCap)
+        pen.setColor(Qtc.Qt.white)
+        pen.setCapStyle(Qtc.Qt.SquareCap)
         painter.setPen(pen)
         painter.drawLine(0, 0, self.r - self.unit, 0)
         painter.restore()
@@ -100,8 +101,8 @@ class Gauge(qtw.QWidget):
         painter.save()
         y_box = -0.275 * self.height()
         h_box = 0.225 * self.height()
-        box_rect = qtc.QRectF(0, y_box, 0.65 * self.height(), h_box)
+        box_rect = Qtc.QRectF(0, y_box, 0.65 * self.height(), h_box)
         painter.drawRect(box_rect)
-        text_rect = qtc.QRectF(0.05, y_box, 0.6 * self.height(), h_box)
+        text_rect = Qtc.QRectF(0.05, y_box, 0.6 * self.height(), h_box)
         painter.drawText(text_rect, 0x0082, str(round(100 * self.angle / self.maxAngle, 1)))
         painter.restore()
