@@ -76,14 +76,14 @@ class NavigationDisplay(Qtw.QWidget):
         for h in self.hdg:
             painter.save()
             painter.rotate(h * 10)
-            painter.drawLine(0, self.r, 0, self.r - 4 * self.unit)
+            painter.drawLine(0, int(self.r), 0, int(self.r - 4 * self.unit))
             if h % 3 == 0:
                 painter.drawText(Qtc.QRectF(-self.w / 2, -self.r + self.w / 2, self.w, self.w), Qtc.Qt.AlignCenter, str(int(h)))
             painter.restore()
         for h in self.hdg_half:
             painter.save()
             painter.rotate(h * 10)
-            painter.drawLine(0, self.r, 0, self.r - 1.5 * self.unit)
+            painter.drawLine(0, int(self.r), 0, int(self.r - 1.5 * self.unit))
             painter.restore()
         painter.restore()
         painter.restore()

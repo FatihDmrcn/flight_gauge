@@ -1,23 +1,23 @@
-import PyQt5.QtWidgets as qtw
-import PyQt5.QtCore as qtc
-import src.attitudeIndicator as ai
-import src.headingIndicator as hi
-import src.gaugeIndicator as gi
+import PyQt5.QtWidgets as Qtw
+import PyQt5.QtCore as Qtc
+from src.attitudeIndicator import PrimaryFlightDisplay
+from src.headingIndicator import NavigationDisplay
+from src.gaugeIndicator import Gauge
 import sys
 
 
-class mk1(qtw.QWidget):
+class Mk1(Qtw.QWidget):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Mk1")
-        self.grid = qtw.QGridLayout()
+        self.grid = Qtw.QGridLayout()
         self.grid.setSpacing(0)
-        self.pfd = ai.PrimaryFlightDisplay(300)
-        self.nd = hi.NavigationDisplay(300)
+        self.pfd = PrimaryFlightDisplay(300)
+        self.nd = NavigationDisplay(300)
         
-        self.gauge = [[gi.Gauge(75, 90, -90) for j in range(2)] for i in range(4)]
+        self.gauge = [[Gauge(75, 90, -90) for j in range(2)] for i in range(4)]
         
-        self.slider = qtw.QSlider(qtc.Qt.Horizontal)
+        self.slider = Qtw.QSlider(Qtc.Qt.Horizontal)
         self.slider.setMinimum(-900)
         self.slider.setMaximum(900)
         self.slider.setValue(0)
@@ -42,6 +42,6 @@ class mk1(qtw.QWidget):
 
 
 if __name__ == '__main__':
-    app = qtw.QApplication(sys.argv)
-    ui = mk1()
+    app = Qtw.QApplication(sys.argv)
+    ui = Mk1()
     sys.exit(app.exec_())

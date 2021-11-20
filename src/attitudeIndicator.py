@@ -86,7 +86,7 @@ class PrimaryFlightDisplay(Qtw.QWidget):
         painter.rotate(-self.rollAngle)
         painter.translate(0, self.pitchAngle)
         # Pitch Horizon Line
-        painter.drawLine(-self.unit * 300, 0, self.unit * 300, 0)
+        painter.drawLine(int(-self.unit * 300), 0, int(self.unit * 300), 0)
         # Pitch Clipper
         r = self.unit*43*self.rollScale             # Radius
         clip_path_circle = Qtc.QRectF(-r, -self.pitchAngle - r, 2 * r, 2 * r)
@@ -101,8 +101,8 @@ class PrimaryFlightDisplay(Qtw.QWidget):
         pitch_half = np.linspace(5, 85, num=9)
         pitch_quarter = np.linspace(2.5, 92.5, num=19)
         for p in pitch_main:
-            x = self.unit*13                        # x-Position
-            y = p*self.unit*self.pitchPadding       # y-Position
+            x = int(self.unit*13)                   # x-Position
+            y = int(p*self.unit*self.pitchPadding)  # y-Position
             painter.drawLine(-x, y, x, y)           # Upper Lines
             painter.drawLine(-x, -y, x, -y)         # Lower Lines
             w = self.unit*10                        # Width
@@ -114,13 +114,13 @@ class PrimaryFlightDisplay(Qtw.QWidget):
             painter.drawText(Qtc.QRectF(x, y - h / 2, w, h), a, s)
             painter.drawText(Qtc.QRectF(x, -y - h / 2, w, h), a, s)
         for p in pitch_half:
-            x = self.unit*6.5
-            y = p*self.unit*self.pitchPadding
+            x = int(self.unit*6.5)
+            y = int(p*self.unit*self.pitchPadding)
             painter.drawLine(-x, y, x, y)           # Upper Lines
             painter.drawLine(-x, -y, x, -y)         # Lower Lines
         for p in pitch_quarter:
-            x = self.unit*2.5
-            y = p*self.unit*self.pitchPadding
+            x = int(self.unit*2.5)
+            y = int(p*self.unit*self.pitchPadding)
             painter.drawLine(-x, y, x, y)           # Upper Lines
             painter.drawLine(-x, -y, x, -y)         # Lower Lines
         painter.restore()
@@ -147,13 +147,13 @@ class PrimaryFlightDisplay(Qtw.QWidget):
         for s in small_strokes:
             painter.save()
             painter.rotate(s)
-            painter.drawLine(0, -self.unit * 47.5, 0, -self.unit * 44.5)
+            painter.drawLine(0, int(-self.unit * 47.5), 0, int(-self.unit * 44.5))
             painter.restore()
         big_strokes = (-60, -30, 30, 60)
         for b in big_strokes:
             painter.save()
             painter.rotate(b)
-            painter.drawLine(0, -self.unit * 50.5, 0, -self.unit * 44.5)
+            painter.drawLine(0, int(-self.unit * 50.5), 0, int(-self.unit * 44.5))
             painter.restore()
         painter.restore()
 

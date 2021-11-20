@@ -74,7 +74,7 @@ class Gauge(Qtw.QWidget):
         pen.setColor(Qtc.Qt.transparent)
         painter.setPen(pen)
         pie_rect = Qtc.QRectF(-self.r, -self.r, 2 * self.r, 2 * self.r)
-        painter.drawPie(pie_rect, 0, -self.angle * 16)      # Degree in 1/16
+        painter.drawPie(pie_rect, 0, int(-self.angle * 16))      # Degree in 1/16
 
         # Radial Max Stroke
         pen.setColor(Qtc.Qt.red)
@@ -84,8 +84,8 @@ class Gauge(Qtw.QWidget):
         opp = np.sin((self.maxAngle-180) * np.pi/180)
         # Adjacent Cathetus
         adj = np.cos((self.maxAngle-180) * np.pi/180)
-        painter.drawLine(-adj * self.height() / 2, -opp * self.height() / 2,
-                         -adj * (1.2*self.height()/2), -opp * (1.2*self.height()/2))
+        painter.drawLine(int(-adj * self.height() / 2), int(-opp * self.height() / 2),
+                         int(-adj * (1.2*self.height()/2)), int(-opp * (1.2*self.height()/2)))
         painter.restore()
 
     def paint_radial_indicator_bar(self, painter, pen):
@@ -94,7 +94,7 @@ class Gauge(Qtw.QWidget):
         pen.setColor(Qtc.Qt.white)
         pen.setCapStyle(Qtc.Qt.SquareCap)
         painter.setPen(pen)
-        painter.drawLine(0, 0, self.r - self.unit, 0)
+        painter.drawLine(0, 0, int(self.r - self.unit), 0)
         painter.restore()
 
     def paint_box_indicator(self, painter):
